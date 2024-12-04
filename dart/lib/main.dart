@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
+import 'components/custom_app_bar.dart';
 
 void main() {
   runApp(const ChuvaDart());
@@ -7,14 +9,16 @@ void main() {
 class ChuvaDart extends StatelessWidget {
   const ChuvaDart({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: fromCssColor('#673AB7')),
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Colors.white
+        ),
       ),
       home: const Calendar(),
     );
@@ -41,23 +45,18 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Chuva ❤️ Flutter'),
+      appBar: CustomAppBar(
+        title: 'Chuva 💜 Flutter',
+        subtitle: 'Programação',
+         backgroundColor: fromCssColor('#456189')
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Programação',
-            ),
-            const Text(
-              'Nov',
-            ),
-            const Text(
-              '2023',
-            ),
+            const Text('Programação'),
+            const Text('Nov'),
+            const Text('2023'),
             OutlinedButton(
               onPressed: () {
                 _changeDate(DateTime(2023, 11, 26));
@@ -92,7 +91,8 @@ class _CalendarState extends State<Calendar> {
                     });
                   },
                   child: const Text('Palestra de 09:30 até 10:00')),
-            if (_currentDate.day == 26 && _clicked) const Activity(),
+            if (_currentDate.day == 26 && _clicked)
+              const Activity(),
           ],
         ),
       ),
@@ -113,7 +113,6 @@ class _ActivityState extends State<Activity> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.inversePrimary,
       child: Column(children: [
         Text(
           'Activity title',
